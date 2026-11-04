@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "surah_number": 1,
+      "number_in_surah": 1,
+      "transliteration": "",
+      "hinglish_translation": "",
+      "tafsir": "",
+      "source_name": "Required source title",
+      "source_url": "https://example.org/source-reference",
+      "license": "Required license / permission reference",
+      "reviewer_status": "pending",
+      "reviewer_note": "Only set reviewer_status to approved after qualified review and rights confirmation."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+INDIAN QURAN (IN HINGLISH) — UI UPDATE
+Date: 4 November 2026
+
+Completed in this update:
+1. Rebuilt Home screen layout in a light-green premium Islamic visual direction.
+2. Added compact Surah/Ayah count cards and clearer Continue Reading card.
+3. Added separate feature tiles for Roman pronunciation, Hinglish meaning and Aasaan Samajh.
+4. Added an honest content-status notice: Arabic text is offline; Hinglish content remains under review.
+5. Refined global theme/card/navigation styling.
+6. Improved Surah search placeholder and added a clear-search button.
+
+Not claimed / still pending:
+- No Flutter SDK was available in the previous execution environment; this source update has not been compiled or run.
+- 6,214 Ayahs still need verified transliteration, Hinglish meaning and Tafsir.
+- Audio playback and audio licensing have not been independently verified.
+- This is not yet an APK or Play Store-ready release.

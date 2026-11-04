@@ -1,0 +1,38 @@
+INDIAN QURAN (IN HINGLISH) — REPAIR AUDIT
+Generated: 2026-11-04
+
+INPUTS
+- Flutter project: indian_quran_hinglish_completed.zip
+- Arabic source: quran-simple.txt (user supplied)
+
+REPAIRS PERFORMED
+1. Replaced Arabic text for every Ayah in SQLite with the exact matching text from quran-simple.txt.
+2. Removed fabricated/template transliteration, Hinglish translation and Tafsir filler from 6,214 Ayahs, leaving those fields blank and marking them pending_review.
+3. Retained 22 existing records (Al-Fatihah and Surahs 112–114) but marked them existing_draft_needs_review; this technical audit does not certify their religious/linguistic accuracy.
+4. Updated the Ayah card to show a pending-review notice rather than fabricated content.
+5. Removed separate Bismillah display from the reader header to avoid duplicating Bismillah where the supplied canonical source includes it in the first Ayah.
+6. Changed database asset to quran_hinglish_v3.db so an older installed DB does not silently supersede the repaired one.
+7. Removed synthetic fallback Ayah generation; missing data now raises an explicit error instead of inventing text.
+8. Improved per-Ayah audio button behavior to pause/resume the currently selected Ayah and switch to another Ayah.
+
+VALIDATION
+- SQLite integrity_check: ok
+- Surah metadata rows: 114
+- Ayah rows: 6236
+- Unique global Ayah numbers: 6236; expected 1–6,236
+- Surah count mismatches: 0
+- Arabic text mismatches against supplied source: 0
+- Audio URL numbering-pattern mismatches: 0
+- Existing draft records: 22
+- Pending review records: 6,214
+- Non-empty transliteration / Hinglish translation / Tafsir records after cleanup: (22, 22, 22)
+
+NOT VERIFIED / STILL REQUIRED
+- Flutter/Dart SDK was not available in this environment, so flutter pub get, flutter analyze, flutter test and APK build were not run.
+- Audio URLs were not downloaded or played; availability and redistribution rights remain unverified.
+- Existing 22 Hinglish/transliteration/Tafsir records need qualified review.
+- 6,214 Ayahs still need authentic transliteration, simple Hinglish translation and separate Aasaan Samajh explanation, with sources and rights checked.
+- Before Play Store release, confirm all third-party content licenses, privacy policy, app listing claims and Android release configuration.
+
+IMPORTANT
+This repaired ZIP is a corrected development project, not a finished complete Hinglish Quran or a signed APK.

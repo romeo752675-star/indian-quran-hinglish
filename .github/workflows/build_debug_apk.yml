@@ -1,0 +1,88 @@
+name: Build Debug APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-debug:
+    name: Build Debug APK for Hafiz Testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter Stable
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.0'
+          channel: 'stable'
+          cache: true
+
+      - name: Inspect & Validate Existing Android Directory
+        run: |
+          echo "=== INSPECTING ANDROID CONFIGURATION ==="
+          if [ ! -d "android" ]; then
+            echo "Android directory not found. Creating Android directory with applicationId com.indianquran.app..."
+            flutter create --platforms=android --org com.indianquran --project-name indian_quran .
+          else
+            echo "Existing Android directory found. Preserving existing files without overwrite."
+          fi
+
+      - name: Verify & Configure AGP 8.9.1 and Gradle 8.11.1
+        run: |
+          echo "=== CONFIGURING GRADLE WRAPPER AND AGP ==="
+          WRAPPER_FILE="android/gradle/wrapper/gradle-wrapper.properties"
+          if [ -f "$WRAPPER_FILE" ]; then
+            sed -i 's|distributionUrl=.*|distributionUrl=https\://services.gradle.org/distributions/gradle-8.11.1-bin.zip|' "$WRAPPER_FILE"
+            echo "Gradle wrapper URL set to:"
+            grep "distributionUrl" "$WRAPPER_FILE"
+          fi
+
+          SETTINGS_FILE="android/settings.gradle"
+          if [ -f "$SETTINGS_FILE" ]; then
+            echo "AGP version in settings.gradle:"
+            grep "com.android.application" "$SETTINGS_FILE" || true
+          fi
+
+      - name: Print Environment and Toolchain Versions
+        run: |
+          echo "=== TOOLCHAIN VERSIONS ==="
+          flutter --version
+          java -version
+          if [ -f "android/gradlew" ]; then
+            chmod +x android/gradlew
+            cd android
+            ./gradlew --version
+            cd ..
+          fi
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Analyze Flutter Code
+        run: flutter analyze
+
+      - name: Run Tests
+        run: flutter test
+
+      - name: Build Debug APK
+        run: flutter build apk --debug --build-number=${{ github.run_number }}
+
+      - name: Upload Debug APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
