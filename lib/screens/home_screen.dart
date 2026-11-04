@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/quran_models.dart';
 import '../services/database_service.dart';
 import 'reader_screen.dart';
 import 'search_screen.dart';

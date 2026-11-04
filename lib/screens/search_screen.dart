@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../models/quran_models.dart';
 import '../services/database_service.dart';
 import 'reader_screen.dart';
 
