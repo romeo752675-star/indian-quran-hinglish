@@ -154,9 +154,9 @@ class _ReaderScreenState extends State<ReaderScreen> {
                           valueListenable: QuranAudioService.instance.repeatModeNotifier,
                           builder: (context, mode, _) {
                             final label = switch (mode) {
-                              QuranRepeatMode.off => 'Repeat off',
-                              QuranRepeatMode.all => 'Repeat Surah',
-                              QuranRepeatMode.one => 'Repeat Ayah',
+                              QuranRepeatMode.off => 'Off',
+                              QuranRepeatMode.all => 'Surah',
+                              QuranRepeatMode.one => 'Ayah',
                             };
                             final icon = switch (mode) {
                               QuranRepeatMode.off => Icons.repeat,
